@@ -5,14 +5,14 @@ export class DockerTreeBase<T> {
     protected static isErrorMessageShown = false;
     public _onDidChangeTreeData: vscode.EventEmitter<T | undefined> = new vscode.EventEmitter<T | undefined>();
     public readonly onDidChangeTreeData: vscode.Event<T | undefined> = this._onDidChangeTreeData.event;
-    private _debounceTimer: NodeJS.Timer;
+    private _debounceTimer: NodeJS.Timeout;
 
     constructor(protected context: vscode.ExtensionContext) {
     }
 
     public refreshDockerTree(): void {
         DockerTreeBase.isErrorMessageShown = false;
-        this._onDidChangeTreeData.fire();
+        this._onDidChangeTreeData.fire( undefined );
     }
 
     protected setAutoRefresh(cachedItemStrings: string[], getItemStringsCallback: () => string[]): void {
@@ -23,7 +23,7 @@ export class DockerTreeBase<T> {
                 try {
                     const itemStrings = getItemStringsCallback();
                     if (!Utility.isArrayEqual(itemStrings, cachedItemStrings)) {
-                        this._onDidChangeTreeData.fire();
+                        this._onDidChangeTreeData.fire( undefined);
                     }
                 } catch (e) { }
             }, interval);

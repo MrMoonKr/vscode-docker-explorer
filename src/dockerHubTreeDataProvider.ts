@@ -40,7 +40,7 @@ export class DockerHubTreeDataProvider extends DockerTreeBase<DockerHubNode> imp
         })
         .then(() => {
             Executor.exec(`docker login -u ${user} -p ${pwd}`);
-            return this._onDidChangeTreeData.fire();
+            return this._onDidChangeTreeData.fire( undefined);
         })
         .catch((error) => {
             vscode.window.showErrorMessage(error);
@@ -50,12 +50,12 @@ export class DockerHubTreeDataProvider extends DockerTreeBase<DockerHubNode> imp
 
     public logout() {
         DockerHubManager.Instance.logout();
-        this._onDidChangeTreeData.fire();
+        this._onDidChangeTreeData.fire( undefined );
         AppInsightsClient.sendEvent("logoutDockerHub");
     }
 
     public refresh() {
-        this._onDidChangeTreeData.fire();
+        this._onDidChangeTreeData.fire( undefined );
         AppInsightsClient.sendEvent("refreshDockerHub");
     }
 

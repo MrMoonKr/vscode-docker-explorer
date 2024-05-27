@@ -7,22 +7,27 @@
             "type": "extensionHost",
             "request": "launch",
             "runtimeExecutable": "${execPath}",
-            "args": ["--extensionDevelopmentPath=${workspaceRoot}" ],
-            "stopOnEntry": false,
+            "args": [
+                "--extensionDevelopmentPath=${workspaceRoot}" ,
+                "--enable-proposed-api",
+                "vscode-samples.custom-view-samples"
+            ],
+            //"stopOnEntry": false,
             "sourceMaps": true,
-            "outFiles": [ "${workspaceRoot}/out/src/**/*.js" ],
-            "preLaunchTask": "npm"
+            "outFiles": [ 
+                "${workspaceRoot}/out/src/**/*.js" 
+            ],
+            "preLaunchTask": "npm: watch"
         },
         {
-            "name": "Launch Tests",
-            "type": "extensionHost",
-            "request": "launch",
-            "runtimeExecutable": "${execPath}",
-            "args": ["--extensionDevelopmentPath=${workspaceRoot}", "--extensionTestsPath=${workspaceRoot}/out/test" ],
-            "stopOnEntry": false,
-            "sourceMaps": true,
-            "outFiles": [ "${workspaceRoot}/out/test/**/*.js" ],
-            "preLaunchTask": "npm"
+            "type": "node",
+            "request": "attach",
+            "name": "Attach to Extension Host",
+            "port": 5870,
+            "restart": true,
+            "outFiles": [
+                "${workspaceRoot}/out"
+            ]
         }
     ]
 }

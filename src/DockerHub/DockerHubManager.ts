@@ -37,7 +37,7 @@ export class DockerHubManager {
                 if (response.data && response.data.token) {
                     this._userName = user;
                     this._token = response.data.token;
-                    resolve();
+                    resolve( response );
                 } else {
                     reject("Error: Login fail.");
                 }
